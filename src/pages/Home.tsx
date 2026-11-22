@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import ResearchInsights from '../components/ResearchInsights';
 import WaveParticlesBackground from '../components/WaveParticlesBackground';
+import DemoMetricsStrip from '../components/DemoMetricsStrip';
+import { useAuth } from '../contexts/AuthContext';
 
 // Pill 标签组件
 const Pill = ({ 
@@ -34,6 +36,7 @@ const Pill = ({
 };
 
 const Home = () => {
+  const { isAuthenticated } = useAuth();
   const [activeSlide, setActiveSlide] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -196,6 +199,14 @@ const Home = () => {
               [查看案例]
               </Link>
           </div>
+
+          {isAuthenticated && (
+            <div
+              className={`mt-8 md:mt-10 transition-all duration-700 delay-[350ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            >
+              <DemoMetricsStrip variant="compact" />
+            </div>
+          )}
         </div>
 
         {/* 向下滚动提示 */}
@@ -205,6 +216,8 @@ const Home = () => {
       </div>
         </div>
       </section>
+
+      <DemoMetricsStrip />
 
       {/* ========== Research Insights Section ========== */}
       <ResearchInsights />
@@ -284,7 +297,7 @@ const Home = () => {
               <div className="card flex-1">
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <div>
-                    <h3 className="text-sm font-semibold text白">
+                    <h3 className="text-sm font-semibold text-white">
                       案例二：“岗前培训费”换内推
                     </h3>
                     <p className="mt-1 text-xs text-white/50 leading-relaxed">
